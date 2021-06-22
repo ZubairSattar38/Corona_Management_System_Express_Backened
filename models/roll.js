@@ -5,6 +5,11 @@ module.exports = (sequelize, Sequelize) => {
             unique:true,
             allowNull:false,
         },
+        count:{
+            type: Sequelize.INTEGER,
+            allowNull:true,
+            default:0.
+        }
     })
     return Roll;
 }

@@ -11,6 +11,7 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended:1}));
 app.use('/api',routes);
+
 app.get("/", (req, res) => {
     res.json({ message: "Application is Running" });
   });

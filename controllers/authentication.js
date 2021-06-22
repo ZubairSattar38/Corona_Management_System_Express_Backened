@@ -17,11 +17,11 @@ module.exports = {
         console.log(pass);
         const rollId = await db.sequelize.query(`select id from rolls where roll = 'patient'`);
         var rollData =rollId[0][0].id
-
         await db.sequelize.query(`INSERT INTO users(firstName,lastName, password, email,roll) VALUES ('${firstName}','${lastName}','${pass}','${email}','${rollData}')`, { type: QueryTypes.INSERT })
             .then(async (users) => {
                 console.log(users)
                 if (users) {
+                    await db.sequelize.query(`UPDATE rolls SET count = count + 1 where id =${rollData}`, { type: QueryTypes.UPDATE })
                     const accessToken = await token.generateAccessToken(email);
                     return res.status(200).json({
                         message: 'Successfully Created',

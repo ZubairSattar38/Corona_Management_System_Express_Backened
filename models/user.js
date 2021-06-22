@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         phoneNumber: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         email: {
             type: Sequelize.STRING,
@@ -19,10 +19,10 @@ module.exports = (sequelize, Sequelize) => {
             required:true,
         },
         qualification: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
         },
         contactNo: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         age: {
             type: Sequelize.INTEGER,
