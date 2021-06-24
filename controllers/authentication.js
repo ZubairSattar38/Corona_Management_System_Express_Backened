@@ -8,7 +8,6 @@ const jwt = require('json-web-token');
 const token = require('./authenticateToken');
 module.exports = {
     async register(req, res, next) {
-        console.log("req.body ",req.body);
         if (!req.body) {
             next();
         }

@@ -11,10 +11,11 @@ module.exports = (sequelize, Sequelize) => {
         fully: {
             type: Sequelize.BOOLEAN
         },
-        users: [{
-            type: Sequelize.INTEGER,
-            allowNull: true,
-        }]
+
+        users:{
+            type:Sequelize.INTEGER,
+            unique: true,
+        }
     })
     return vaccination;
 }

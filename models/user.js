@@ -38,10 +38,17 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             ref: "doze",
         },
-        vaccination:{
-            type: Sequelize.INTEGER,
+        vaccination_id:{
+            type: Sequelize.BOOLEAN,
             ref:"vaccination"
-        }
-    })
+        },
+    }, {
+        sequelize,
+        freezeTableName: true,
+        tableName: 'users',
+        timestamps: false,
+        underscored: true
+    }
+    )
     return User;
 }

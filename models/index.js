@@ -11,6 +11,14 @@ db.sequelize = sequelize;
 
 db.roll = require('./roll')(sequelize,Sequelize);
 db.user = require('./user')(sequelize,Sequelize);
+db.vaccination = require('./vaccination')(sequelize,Sequelize);
+
+// db.vaccination.hasMany(db.user,{as :'users'});
+// db.user.belongsTo(
+//     db.vaccination,
+//     foreignKey : "vaccination_id",
+//     as .vaccination
+// )
 // db.user = require('./vaccination')(sequelize.Sequelize);
 // db.doze = require('./doze')(sequelize.Sequelize);
 

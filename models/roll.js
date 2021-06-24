@@ -10,6 +10,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull:true,
             default:0.
         }
+    }, {
+        sequelize,
+        freezeTableName: true,
+        tableName: 'rolls',
+        timestamps: false,
+        underscored: true
     })
     return Roll;
 }
