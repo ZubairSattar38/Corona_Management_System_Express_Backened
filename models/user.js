@@ -39,7 +39,8 @@ module.exports = (sequelize, Sequelize) => {
             ref: "doze",
         },
         vaccination_id:{
-            type: Sequelize.BOOLEAN,
+            type: Sequelize.INTEGER,
+            default:1,
             ref:"vaccination"
         },
     }, {

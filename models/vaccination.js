@@ -1,23 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
-    const vaccination = sequelize.define('vaccination', {
+    const Roll = sequelize.define("vaccination", {
         name: {
             type: Sequelize.STRING,
-            allowNull: false,
-            unique: true
+            unique:true,
+            allowNull:false,
         },
-        partially: {
-            type: Sequelize.BOOLEAN,
-        },
-        fully: {
-            type: Sequelize.BOOLEAN
-        },
-
-        users:{
-            type:Sequelize.INTEGER,
-            unique: true,
+        count:{
+            type: Sequelize.INTEGER,
+            allowNull:true,
+            default:0.
         }
+    }, {
+        sequelize,
+        freezeTableName: true,
+        tableName: 'vaccination',
+        timestamps: false,
+        underscored: true
     })
-    return vaccination;
+    return Roll;
 }
 // INSERT INTO `rolls`(`firstName`) VALUES ('doctor');
 // INSERT INTO `rolls`(`firstName`) VALUES ('doctor');

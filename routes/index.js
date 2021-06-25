@@ -14,4 +14,5 @@ router.post('/addDoctor',doctController.addDoctor);
 
 router.get('/getPatient/:type',patController.getPatients);
 router.delete('/deletePatient/:email',patController.deletePatient);
+router.post('/updatePatient',patController.updateVaccinatedPatient);
 module.exports = router;

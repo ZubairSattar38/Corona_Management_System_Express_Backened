@@ -13,14 +13,18 @@ module.exports = {
         }
         const { firstName, lastName, password, email } = req.body;
         let pass = await hashPassword.hashPassword(password);
-        console.log(pass);
         const rollId = await db.sequelize.query(`select id from rolls where roll = 'patient'`);
+        const vaccId = await db.sequelize.query(`select id from vaccination where name = 'non_vaccinated'`);
+
         var rollData =rollId[0][0].id
-        await db.sequelize.query(`INSERT INTO users(firstName,lastName, password, email,roll) VALUES ('${firstName}','${lastName}','${pass}','${email}','${rollData}')`, { type: QueryTypes.INSERT })
+        var vaccData =vaccId[0][0].id
+
+        await db.sequelize.query(`INSERT INTO users(first_name,last_name, password, email,roll,vaccination_id) VALUES ('${firstName}','${lastName}','${pass}','${email}','${rollData}','${vaccData}')`, { type: QueryTypes.INSERT })
             .then(async (users) => {
                 console.log(users)
                 if (users) {
                     await db.sequelize.query(`UPDATE rolls SET count = count + 1 where id =${rollData}`, { type: QueryTypes.UPDATE })
+                    await db.sequelize.query(`UPDATE vaccination SET count = count + 1 where id =${vaccData}`, { type: QueryTypes.UPDATE })
                     const accessToken = await token.generateAccessToken(email);
                     return res.status(200).json({
                         message: 'Successfully Created',
