@@ -13,6 +13,8 @@ db.roll = require('./roll')(sequelize,Sequelize);
 db.user = require('./user')(sequelize,Sequelize);
 db.vaccination = require('./vaccination')(sequelize,Sequelize);
 
+//                          Triggers
+ 
 // db.vaccination.hasMany(db.user,{as :'users'});
 // db.user.belongsTo(
 //     db.vaccination,
@@ -20,6 +22,6 @@ db.vaccination = require('./vaccination')(sequelize,Sequelize);
 //     as .vaccination
 // )
 // db.user = require('./vaccination')(sequelize.Sequelize);
-// db.doze = require('./doze')(sequelize.Sequelize);
+db.doze = require('./doze')(sequelize,Sequelize);
 
 module.exports = db;

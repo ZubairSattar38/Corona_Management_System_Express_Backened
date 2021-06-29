@@ -2,16 +2,19 @@ module.exports = (sequelize, Sequelize) => {
     const doze = sequelize.define('doze',{
         name:{
             type:Sequelize.STRING,
+            notNull: true,
             unique:true,
-            allowNull:false,
         },
         no_of_dozes:{
             type:Sequelize.INTEGER,
+            min:0,
         },
-        users: [{
-            type: Sequelize.INTEGER,
-            allowNull: true,
-        }]
+    },{
+        sequelize,
+        freezeTableName: true,
+        tableName: 'doze',
+        timestamps: false,
+        underscored: true
     })
     return doze;
 }

@@ -14,7 +14,6 @@ module.exports = {
                 console.log(err);
                 next();
             })
-
     },
     async deletePatient(req, res, next) {
         console.log("Patient Id  :- ", req.params.email);
@@ -44,7 +43,7 @@ module.exports = {
         await db.sequelize.query(`UPDATE vaccination SET count = count - 1 where id =${type}`, { type: QueryTypes.UPDATE })
         await db.sequelize.query(`update users set vaccination_id = ${vaccData} where email = '${email}'`)
             .then(updated => {
-                console.log("Successfulyy Updated");
+                console.log("Successfuly Updated");
                 return res.status(200).json({
                     message: "Successfully Updated",
                     updatePatien: true,

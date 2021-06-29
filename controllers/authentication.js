@@ -11,15 +11,13 @@ module.exports = {
         if (!req.body) {
             next();
         }
-        const { firstName, lastName, password, email } = req.body;
+        const { firstName, lastName, password, email,age } = req.body;
         let pass = await hashPassword.hashPassword(password);
         const rollId = await db.sequelize.query(`select id from rolls where roll = 'patient'`);
         const vaccId = await db.sequelize.query(`select id from vaccination where name = 'non_vaccinated'`);
-
         var rollData =rollId[0][0].id
         var vaccData =vaccId[0][0].id
-
-        await db.sequelize.query(`INSERT INTO users(first_name,last_name, password, email,roll,vaccination_id) VALUES ('${firstName}','${lastName}','${pass}','${email}','${rollData}','${vaccData}')`, { type: QueryTypes.INSERT })
+        await db.sequelize.query(`INSERT INTO users(first_name,last_name, password, email,roll,vaccination_id,age) VALUES ('${firstName}','${lastName}','${pass}','${email}','${rollData}','${vaccData}',${age})`, { type: QueryTypes.INSERT })
             .then(async (users) => {
                 console.log(users)
                 if (users) {
@@ -30,6 +28,8 @@ module.exports = {
                         message: 'Successfully Created',
                         email: email,
                         token: accessToken,
+                        name: firstName+' '+lastName,
+                        isToken:true,
                         roll:'patient',
                     });
                 } else {
@@ -46,17 +46,20 @@ module.exports = {
             next();
         }
         const { email, password } = req.body;
-        await db.sequelize.query(`Select r.roll,u.email,u.password from users  as u inner join rolls as r on u.roll =  r.id where email = '${email}' `, { type: QueryTypes.SELECT })
+        await db.sequelize.query(`Select r.roll,u.email,u.password ,u.first_name,u.last_name from users  as u inner join rolls as r on u.roll =  r.id where email = '${email}' `, { type: QueryTypes.SELECT })
             .then(async (users) => {
+                console.log("Roll Data ",users);
+
                 if (users) {
-                    console.log("User data ",users);
                     bcrypt.compare(password, users[0].password, async function (err, result) {
                         if (result) {
                             const accessToken = await token.generateAccessToken(email);
                             return res.status(200).json({
                                 message: 'Successfully Login',
-                                email: users.email,
-                                roll: users.roll,
+                                email: users[0].email,
+                                roll: users[0].roll,
+                                name: users[0].first_name+' '+users[0].last_name,
+                                isToken:true,
                                 token: accessToken
                             });
                         } else {

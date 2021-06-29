@@ -17,6 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             unique:true,
             required:true,
+            isEmail: true,
         },
         qualification: {
             type: Sequelize.STRING,
@@ -49,7 +50,7 @@ module.exports = (sequelize, Sequelize) => {
         tableName: 'users',
         timestamps: false,
         underscored: true
-    }
+    },
     )
     return User;
 }
