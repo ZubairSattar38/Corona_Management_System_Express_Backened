@@ -5,7 +5,7 @@ const view = require('./viewTable')
 module.exports={
     async getUserRecord(req, res, next) {
         view.doctorView();
-        
+        view.patientView();
         await db.sequelize.query(`select * from users where roll = (select id from rolls where roll= '${req.params.type}')`)
             .then(records => {
                 console.log("Check Data ", records);
